@@ -111,28 +111,26 @@ public class BinarySearchTree {
 	}
 
 
-	public void inorder(Node root) {
-		if (root != null) {
-			inorder(root.getLeftChild());
-			array.add(root.getValue());
-			inorder(root.getRightChild());
+	public void inorder(Node temp) {
+		if (temp != null) {
+			inorder(temp.getLeftChild());
+			array.add(temp.getValue());
+			inorder(temp.getRightChild());
 		}
 	}
     // Returns the number of entries in this BinarySearchTree that are
     // less than value.
 	public int numLessThan(int value) {
+		inorder(this.root);
 		int total_minimum_number = 0;
 		for (int i = 0; i < array.size(); i++) {
-			if (value < array.get(i)) {
+			if (value > array.get(i)) {
 				// System.out.println("Check");
 				total_minimum_number += 1;
 			}
 		}
+		array.clear();
 		return total_minimum_number;
-
-	// TODO: You should implement numLessThan() here.
-	// Note that you will likely want to implement a helper
-	// method in the Node class above.
 	} 
 
 
@@ -146,7 +144,7 @@ public class BinarySearchTree {
 		} else if (!find(value)) {
 			return false;
 		} else {
-			temp = delete(root, value);
+			temp = delete(temp, value);
 			return true;
 		}
 
